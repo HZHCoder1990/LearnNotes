@@ -1,0 +1,7 @@
+close all;
+clc;
+
+% 读取图像
+I = imread('../images/lena.png');
+% 修改图像格式 png => jpg
+imwrite(I,'../images/newLena.jpg');

@@ -33,6 +33,18 @@
   % 更多的文件信息 直接info不加";"即可在控制台看见
   ```
 
+- Lesson 2:Reading,Changing Format and Writing Image using MATLAB
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 读取图像
+  I = imread('../images/lena.png');
+  % 修改图像格式 png => jpg
+  imwrite(I,'../images/newLena.jpg');
+  ```
+
   
 
 ### 语法(Syntax)
