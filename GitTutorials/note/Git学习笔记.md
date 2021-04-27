@@ -179,3 +179,24 @@ git push origin 本地分支名称:远程分支名称(最开始没有)
 
 ```
 
+
+
+**Tips**
+
+```nginx
+# 如果执行推送到远程命令报错 git push origin master 报错如下
+ 
+! [rejected]        master -> master (fetch first)
+error: 推送一些引用到 'https://github.com/HZHCoder1990/LearnNotes.git' 失败
+提示：更新被拒绝，因为远程仓库包含您本地尚不存在的提交。这通常是因为另外
+提示：一个仓库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更
+提示：（如 'git pull ...'）。
+提示：详见 'git push --help' 中的 'Note about fast-forwards' 小节。
+
+# 首先执行:
+git pull
+# 再执行
+git push origin master 
+
+```
+
