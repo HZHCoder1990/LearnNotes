@@ -45,7 +45,69 @@
   imwrite(I,'../images/newLena.jpg');
   ```
 
+- Lesson 3:Displaying Images using MATLAB
+
+  ```matlab
+  close all;
+  clc;
   
+  % 读取图像
+  I1 = imread('../images/lena.png');
+  I2 = imread('../images/flower.png');
+  I3 = imread('../images/avatar.jpg');
+  
+  % 显示 1行3列 ==> subplot(行、列、编号)
+  subplot(1,3,1);imshow(I1);
+  subplot(1,3,2);imshow(I2);
+  subplot(1,3,3);imshow(I3);
+  ```
+
+  ![](../images/display.png)
+
+- Lesson 4:Changing Color Space
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 读取图像
+  original_image = imread('../images/lena.png');
+  gray_image = rgb2gray(original_image);
+  
+  subplot(1,2,1);imshow(original_image);
+  subplot(1,2,2);imshow(gray_image);
+  ```
+
+  ![](../images/changeColorSpace.png)
+
+
+
+- Lesson 5:Separating/Splitting Channels using MATLAB
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 读取图像
+  image_variable = imread('../images/lena.png');
+  
+  % 分别获取三个通道的像素值
+  red_channel = image_variable(:,:,1);
+  green_channel = image_variable(:,:,2);
+  blue_channel = image_variable(:,:,3);
+  
+  subplot(1,3,1);imshow(red_channel);
+  subplot(1,3,2);imshow(green_channel);
+  subplot(1,3,3);imshow(blue_channel);
+  ```
+
+  ![](../images/splitChannel.png)
+
+
+
+
+
+
 
 ### 语法(Syntax)
 
