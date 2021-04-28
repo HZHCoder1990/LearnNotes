@@ -50,7 +50,6 @@ float getDist(vec3 eye,vec3 viewRayDirection,float start,float end){
         }
         // Move along the view ray
         depth += dist;
-        
         if (depth >= end){
             // Gone too far; give up
             return end;
@@ -79,12 +78,11 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 我比较习惯下面的写法
 
 ```glsl
-
 #define MAX_DIST 100.
 #define EPSILON 0.001
 #define MAX_MARCHING_STEPS 100   
 // SDF:Signed Distance Function 符号距离函数
-// 绘制球体  球的中心点默认是坐标原点
+// 绘制球体 
 float sdSphere(vec3 p,float r){
    return length(p) - r;
 }
@@ -97,6 +95,7 @@ float getDist(vec3 ro,vec3 rd){
    for (int i = 0;i < MAX_MARCHING_STEPS; i ++){
         // ro和rd的方向是相反的
         vec3 p = ro + depth * rd;
+       // 1 代表绘制圆球的半径
         float d = sdSphere(p,1.);
         depth += d;
         if (depth < EPSILON || depth > MAX_DIST)  break;
@@ -114,12 +113,58 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     if (d > MAX_DIST){ // 没撞到
        col = vec3(0.6);
     }
-    else{
+    else{ // 撞到了 绘制球体的表面
        col = vec3(0.,.5,.0);
     }
     fragColor = vec4(col,1.0);
 }
 ```
 
+<img src="../images/raymarching.png" style="zoom:50%;" />
 
+#### Add Lighting
+
+- 计算射线与球体相交点的法线向量(单位向量)
+
+  在2D空间中，计算某一个点$f(x,y)$的斜率可以通过下面的公式:
+  $$
+  \vec k = \frac{f(x_1 + \Delta) - f(x_1)}{\Delta}
+  $$
+  在3D空间中，假设球体表面一个点的坐标为$f(x,y,z)$，那么可以计算法向量的公式为:
+
+  <img src="../images/surface.png" style="zoom:50%;" />
+
+  ```glsl
+  // SDF
+  float sceneSDF(vec3 p){
+     return length(p) - 1.;
+  }
+  // p为球体表面点
+  vec3 calcNormal(vec3 p){
+     // ε
+     float e = 0.005;
+     return normalize(
+             vec3(
+                 sceneSDF(vec3(p.x + e,p.y,p.z)) - sceneSDF(vec3(p.x - e,p.y,p.z)),
+                 sceneSDF(vec3(p,p.y + e,p.z)) - sceneSDF(vec3(p.x,p.y - e,p.z)),
+                 sceneSDF(vec3(p.x,p.y,p.z + e)) - sceneSDF(vec3(p.x,p.y,p.z - e))
+                 ));
+  }
+  ```
+
+- Lambert Lighting
+
+  兰伯特漫反射光照模型计算如下:
+  $$
+  C_{diffuse} = (C_{light}·M_{diffuse})Max(0,{\vec n·\vec l})
+  $$
+  <font color=#F00>123</font>
+
+
+
+#### 单词
+
+Slope:斜率
+
+Sample:样本
 
