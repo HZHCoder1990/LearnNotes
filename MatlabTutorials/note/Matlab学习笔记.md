@@ -105,9 +105,78 @@
 
 
 
+- Lesson 6:Accessing the Pixel Value of a Grayscale Image using MATLAB
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 读取图像
+  image_variable = imread('../images/lena.png');
+  gray_image = rgb2gray(image_variable);
+  % 读取(50,60)位置处的像素 width * height 
+  pixel_value = gray_image(50,60);
+  sprintf("value = %d",pixel_value);
+  ```
+
+- Lesson 7:Accessing the Pixel Values of an RGB Image using MATLAB
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 读取图像
+  image_variable = imread('../images/lena.png');
+  % 第一个通道 红色
+  red_value = image_variable(50,60,1);
+  % 第二个通道 绿色
+  green_value = image_variable(50,60,2);
+  % 第三个通道 蓝色
+  blue_value = image_variable(50,60,3);
+  sprintf("red_value = %d green_value = %d  blue_value = %d",red_value,green_value,blue_value)
+  ```
+
+  
 
 
 
+### 自己的练习
+
+- 分别提取三通道的图像
+
+  ```matlab
+  close all;
+  clc;
+  
+  % 分别提取三个通道的图像
+  % 读取图像
+  I = imread('../images/lena.png');
+  
+  % 提取R通道的图像
+  R = I;
+  R(:,:,1) = I(:,:,1);
+  R(:,:,2) = 0;
+  R(:,:,3) = 0;
+  
+  % 提取G通道的图像
+  G = I;
+  G(:,:,1) = 0;
+  G(:,:,2) = I(:,:,2);
+  G(:,:,3) = 0;
+  
+  % 提取B通道的图像
+  B = I;
+  B(:,:,1) = 0;
+  B(:,:,2) = 0;
+  B(:,:,3) = I(:,:,3);
+  
+  subplot(1,4,1);imshow(I);
+  subplot(1,4,2);imshow(R);
+  subplot(1,4,3);imshow(G);
+  subplot(1,4,4);imshow(B);
+  ```
+
+  <img src="../images/rgb.png" style="zoom:80%;" />
 
 ### 语法(Syntax)
 
